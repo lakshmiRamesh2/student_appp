@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "516179459700",
+    "firebase_url": "https://techstudentapp.firebaseio.com",
+    "project_id": "techstudentapp",
+    "storage_bucket": "techstudentapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516179459700:android:dc459501093e3d43095b21",
+        "android_client_info": {
+          "package_name": "com.example.student_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516179459700-buc25s7bul06udbu0eah05c8d9ctc7d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKCXgfO3K9dSXcjMrV3jIrYmJE-VUwPI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516179459700-buc25s7bul06udbu0eah05c8d9ctc7d8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516179459700:android:e06226117932ef72095b21",
+        "android_client_info": {
+          "package_name": "com.example.teacher_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516179459700-buc25s7bul06udbu0eah05c8d9ctc7d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKCXgfO3K9dSXcjMrV3jIrYmJE-VUwPI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516179459700-buc25s7bul06udbu0eah05c8d9ctc7d8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

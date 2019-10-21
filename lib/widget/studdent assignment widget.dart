@@ -7,8 +7,6 @@ import "package:http/http.dart"as http;
 import 'dart:io';
 import 'package:student_app/screens/assignment_screen.dart';
 
-
-
 class StudentAssignmentWidget extends StatefulWidget{
 
   final String studentName;

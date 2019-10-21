@@ -19,7 +19,6 @@ bool isPasswordFilled=true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getToken();
   }
@@ -141,9 +140,37 @@ bool isPasswordFilled=true;
     print("im printing uuid");
     print(uuid.v1());
     studentID=uuid.v1();
-    Firestore.instance.collection('student').document()
-        .setData({ 'student_deviceId':devicetoken,"student_emailId":emailController.text,
-      "student_password":passwordController.text,"student_name":nameController.text,"student_id":studentID});
+    if(emailController.text=="student1@123") {
+      Firestore.instance.collection('student').document("HLhDZS01qnlRILkr9mDl")
+          .setData({
+        'student_deviceId': devicetoken,
+        "student_emailId": emailController.text,
+        "student_password": passwordController.text,
+        "student_name": nameController.text,
+        "student_id": studentID
+      });
+    }
+    if(emailController.text=="student2@123"){
+      Firestore.instance.collection('student').document("KAlHI4093ozwO9uWEetK")
+          .setData({
+        'student_deviceId': devicetoken,
+        "student_emailId": emailController.text,
+        "student_password": passwordController.text,
+        "student_name": nameController.text,
+        "student_id": studentID
+      });
+    }else{ Firestore.instance.collection('student').document()
+        .setData({
+      'student_deviceId': devicetoken,
+      "student_emailId": emailController.text,
+      "student_password": passwordController.text,
+      "student_name": nameController.text,
+      "student_id": studentID
+    });
+    }
+
+    }
+    }
 
   }
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();

@@ -37,14 +37,23 @@ class AssignmentScreen extends StatefulWidget {
     );
   }
 
-  String Wish;
+  String wish;
 Widget assignmentWidget(String studentName,String studentUrl) {
-  return Card(child: Column(
-    children: <Widget>[
-      Text(Wish),
-      RaisedButton(onPressed: () {}, child: Text("download"))
-    ],
-  ),);
+  return Scaffold(
+    appBar: AppBar(title: Text("Status Screen"),automaticallyImplyLeading: true,backgroundColor: Colors.green),
+    body: Card(child: Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(wish),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: greatings(),
+        ),
+      ],
+    ),),
+  );
 }
 
   Widget statusButton(String status){

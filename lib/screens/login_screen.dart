@@ -27,9 +27,9 @@ bool isPasswordFilled=true;
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.purpleAccent,
+      backgroundColor: Colors.green,
       key: _globalScaffoldKey,
-      appBar: AppBar(title:Center(child: Text("Login Screen")),backgroundColor: Colors.purpleAccent,elevation: 0.0,),
+      appBar: AppBar(title:Center(child: Text("Login Screen")),backgroundColor: Colors.green,elevation: 0.0,),
       body: ListView(
         children: <Widget>[
           Center(
@@ -56,7 +56,7 @@ bool isPasswordFilled=true;
 //                        builder: (context) => HomeScreen(),
 //                      ),
 //                    );
-                  ,child: Text("Done"),color:Colors.purpleAccent,)
+                  ,child: Text("Done"),color:Colors.green,)
                 ],
                 ),
               ),
@@ -170,9 +170,7 @@ bool isPasswordFilled=true;
     }
 
     }
-    }
 
-  }
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   String devicetoken;
 

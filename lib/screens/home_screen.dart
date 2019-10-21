@@ -12,8 +12,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:student_app/utils/user_list.dart';
-import 'package:student_app/models/teacher_model.dart';
 import 'package:student_app/api_manager/api_manager.dart';
 
 
@@ -45,23 +43,21 @@ class HomeScreenState extends State<HomeScreen> {
   }
  List<StudentAssignmentWidget> studentAssignmentWidgets=[];
   String _path;
-  Map<String, String> _paths;
-  String _extension;
-  FileType _pickType;
-  bool _multiplePick = false;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+
+
   List<StorageUploadTask> _tasks=<StorageUploadTask>[];
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Home Screen"),),
+        appBar: AppBar(title: Text("Home Screen"),backgroundColor: Colors.green),
         body: ListView(children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Hi " + widget.studentName, style: TextStyle(fontSize: 25.0,
-                color: Colors.purpleAccent,
+                color: Colors.green,
                 fontWeight: FontWeight.bold),),
           ),
 
@@ -77,49 +73,44 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Divider(color: Colors.purpleAccent,),
+            child: Divider(color: Colors.green,),
           ),
 
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RaisedButton(onPressed: () {
               filePicker();
-            }, child: Text("UPLOAD Assignment"), color: Colors.purpleAccent,),
+            }, child: Text("UPLOAD Assignment"), color: Colors.green,),
           ),
-        Divider(color: Colors.purpleAccent,),
-         Column(children: studentAssignmentWidgets
-         )
+        Divider(color: Colors.green,),
+        // Column(children: studentAssignmentWidgets
+      //   )
 
         ],)
 
     );
   }
 
-// List<StudentAssignmentWidget> listofUploadeddocuments(){
-//    List<StudentAssignmentWidget> listAssignmentUrl=[];
-//    Firestore.instance
-//        .collection('assignmentDownloadLinks')
-//        .where("student_deviceId", isEqualTo:widget.studentDeviceId)
-//        .snapshots()
-//        .listen((data) =>
-//        data.documents.forEach((doc) =>
-//            listAssignmentUrl.add(StudentAssignmentWidget(studentName:doc["student_name"],assignmentUrl:doc["assignmentDownloadUrl"]))
-//
-//        ));
-//    return listAssignmentUrl;
-//  }
+
 
   List<StudentAssignmentWidget> listofStatusForUploadedAssignment(){
     List<StudentAssignmentWidget> listAssignmentUrl=[];
     Firestore.instance
         .collection('assignmentstatus')
-        .where("student_deviceId", isEqualTo:widget.studentDeviceId )
+        .where("teacher_devicceId", isEqualTo:"eGKhVGqD5-Q:APA91bHFSjGi58VC_CkTwnOKXn1ovnEMbCtygdhptN73LHAXN6FSBCr1Wo6l3IUtlh7XE6yEdN3xHNn2y1Zk3gzNoik_vRFDQBDkKWTzE778rUXRR1LZ9rVNQ0tebdJNAShlPuAbj3Fj" )
         .snapshots()
         .listen((data) =>
         data.documents.forEach((doc) =>
-            listAssignmentUrl.add(StudentAssignmentWidget(studentName:doc["student_name"],assignmentUrl:doc["assignmentDownloadUrl"]))
+            listAssignmentUrl.add(StudentAssignmentWidget(studentName:doc["assignment_name"],
+                assignmentUrl:doc["assignment_url"],
+                assignmentName: doc["assignment_name"],
+              teacherName: doc["teacher_name"],
+              statusOfAssignment: doc["assignment_url"],
+            ))
 
         ));
+
+    print(listAssignmentUrl.length);
     return listAssignmentUrl;
   }
 
@@ -140,7 +131,6 @@ class HomeScreenState extends State<HomeScreen> {
 
     }
   }
-
   getTeacherDetails(){
 
     Firestore.instance
@@ -172,9 +162,12 @@ ApiManager().sendNotification(studentName: widget.studentName,teacherDeviceId: t
 uplodthedownlodedurl(){
   Firestore.instance.collection('assignmentDownloadLinks').document()
       .setData({ 'student_deviceId':widget.studentDeviceId,"student_emailId":widget.studentEmailId,
-    "assignmentDownloadUrl":uplodedDocumentUrl,"student_name":widget.studentName,"student_id":widget.studentId});
+    "assignmentDownloadUrl":uplodedDocumentUrl,"student_name":widget.studentName,"student_id":widget.studentId,
+      "teacher_deviceId":teacherDeviceid,"toview":true
+      });
 
 }
+  String _extension;
 
 
   upload(filename, filePath)async {
@@ -184,6 +177,7 @@ uplodthedownlodedurl(){
         .last;
     StorageReference storageReference = FirebaseStorage.instance.ref().child(
         filename);
+    print(_extension);
 
     final StorageUploadTask uploadTask = storageReference.putFile(File(filePath));
     await download(storageReference);
@@ -218,33 +212,10 @@ String uplodedDocumentUrl;
   }
 
   String teacherName = "";
-//fetchData()async{
-//  SharedPreferences prefs = await SharedPreferences.getInstance();
-//  String teacherName = prefs.getString('name');
-//  setState(() {
-//    teacherName=teacherName;
-//  });
-//}
+
 }
 
 
 
-//class UploadedTaskLIstTile extends StatelessWidget{
-//
-//  UploadedTaskLIstTile({Key key,this.task,this.onDismiss,this.onDownload}):super(key:key);
-// final  StorageUploadTask task;
-// final VoidCallback onDismiss;
-// final VoidCallback onDownload;
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    // TODO: implement build
-//    return StreamBuilder<StorageTaskEvent>(
-//      stream: task.events,
-//      builder: (BuildContext context, AsyncSnapshot<StorageTaskEvent>, asyncSnapshot){
-//        Widget subTitle;
-//    }
-//    )
-//  }
-//}
+
 

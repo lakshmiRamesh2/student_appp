@@ -3,8 +3,6 @@
 
 
 import 'package:flutter/material.dart';
-import "package:http/http.dart"as http;
-import 'dart:io';
 import 'package:student_app/screens/assignment_screen.dart';
 
 class StudentAssignmentWidget extends StatefulWidget{
@@ -60,7 +58,7 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(onPressed: (){
                    // _showDownloadurl();
-                    downloadUrl(widget.assignmentUrl);
+                    //downloadUrl(widget.assignmentUrl);
                   },child:Row(
                     children: <Widget>[
                       Icon(Icons.file_download,color: Colors.blue,),
@@ -97,10 +95,5 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
     );
   }
 
-  downloadUrl(String url)async{
-    final http.Response downlodedData=await http.get(url);
-    final Directory systemTempDir= Directory.systemTemp;
-   // downlodedData.bodyBytes
-    print(widget.assignmentUrl);
-  }
+
 }

@@ -43,19 +43,14 @@ class SplashScreenState extends State<SplashScreen>{
                  // });
   });
 
-
-
               }
-
-
-
 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Center(child: Text("Student App",style: TextStyle(color: Colors.purpleAccent,fontSize: 20.0,fontStyle: FontStyle.italic),),),
+      body: Center(child: Text("Student App",style: TextStyle(color: Colors.green,fontSize: 20.0,fontStyle: FontStyle.italic),),),
     );
   }
 

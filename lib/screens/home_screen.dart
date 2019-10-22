@@ -21,6 +21,7 @@ class HomeScreen extends StatefulWidget{
   final String studentDeviceId;
   final String studentEmailId;
   final String studentId;
+
   HomeScreen({@required this.studentName,this.studentDeviceId,this.studentEmailId,this.studentId});
 
 
@@ -35,16 +36,17 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   studentAssignmentWidgets=listofStatusForUploadedAssignment();
+    studentDeviceId=widget.studentDeviceId;
     getTeacherDetails();
- //  Future.delayed(Duration(seconds: 2)).then((d){
-     //listofUploadeddocuments();
-  // });
+    listofStatusForUploadedAssignment();
+    getTeacherDetail();
+
+
   }
  List<StudentAssignmentWidget> studentAssignmentWidgets=[];
   String _path;
 
-
+String studentDeviceId="";
 
   List<StorageUploadTask> _tasks=<StorageUploadTask>[];
 
@@ -83,8 +85,8 @@ class HomeScreenState extends State<HomeScreen> {
             }, child: Text("UPLOAD Assignment"), color: Colors.green,),
           ),
         Divider(color: Colors.green,),
-        // Column(children: studentAssignmentWidgets
-      //   )
+         Column(children: studentAssignmentWidgets
+         )
 
         ],)
 
@@ -93,22 +95,29 @@ class HomeScreenState extends State<HomeScreen> {
 
 
 
-  List<StudentAssignmentWidget> listofStatusForUploadedAssignment(){
+  Future<List<StudentAssignmentWidget>> listofStatusForUploadedAssignment()async{
+    print("im running");
     List<StudentAssignmentWidget> listAssignmentUrl=[];
-    Firestore.instance
+   await  Firestore.instance
         .collection('assignmentstatus')
-        .where("teacher_devicceId", isEqualTo:"eGKhVGqD5-Q:APA91bHFSjGi58VC_CkTwnOKXn1ovnEMbCtygdhptN73LHAXN6FSBCr1Wo6l3IUtlh7XE6yEdN3xHNn2y1Zk3gzNoik_vRFDQBDkKWTzE778rUXRR1LZ9rVNQ0tebdJNAShlPuAbj3Fj" )
+        .where("student_deviceId", isEqualTo:studentDeviceId)
         .snapshots()
         .listen((data) =>
         data.documents.forEach((doc) =>
-            listAssignmentUrl.add(StudentAssignmentWidget(studentName:doc["assignment_name"],
-                assignmentUrl:doc["assignment_url"],
-                assignmentName: doc["assignment_name"],
-              teacherName: doc["teacher_name"],
-              statusOfAssignment: doc["assignment_url"],
-            ))
+
+
+          listAssignmentUrl.add(StudentAssignmentWidget(assignmentName: "assignment",studentName:widget.studentName,
+            assignmentUrl:doc["assignment_url"],teacherName: "Teacher",
+            statusOfAssignment:doc["assignment_status"],
+          )),
+
 
         ));
+    setState(() {
+      print("im printing listtttt");
+      studentAssignmentWidgets=listAssignmentUrl;
+
+    });
 
     print(listAssignmentUrl.length);
     return listAssignmentUrl;
@@ -131,6 +140,7 @@ class HomeScreenState extends State<HomeScreen> {
 
     }
   }
+
   getTeacherDetails(){
 
     Firestore.instance
@@ -153,6 +163,30 @@ class HomeScreenState extends State<HomeScreen> {
 
   }
 
+String check;
+  getTeacherDetail(){
+
+    Firestore.instance
+        .collection('assignmentstatus')
+        .document('bQZVZexhaxplwt5XXL4q')
+        .get()
+        .then((DocumentSnapshot ds) {
+      Map<String,dynamic> teacherData=ds.data;
+
+      teacherData.forEach((k,v){
+
+        if(k=="student_deviceId") {
+          setState(() {
+            check=v.toString();
+            print("im printing check");
+            print(check);
+          });
+        }
+      });
+    });
+
+  }
+
   String teacherDeviceid;
 sendNotificationToTeacher()
 {
@@ -160,9 +194,10 @@ ApiManager().sendNotification(studentName: widget.studentName,teacherDeviceId: t
 
 }
 uplodthedownlodedurl(){
+  print(widget.studentDeviceId);
   Firestore.instance.collection('assignmentDownloadLinks').document()
-      .setData({ 'student_deviceId':widget.studentDeviceId,"student_emailId":widget.studentEmailId,
-    "assignmentDownloadUrl":uplodedDocumentUrl,"student_name":widget.studentName,"student_id":widget.studentId,
+      .setData({ 'student_deviceId':widget.studentDeviceId,
+    "assignmentDownloadUrl":uplodedDocumentUrl,"student_name":widget.studentName,
       "teacher_deviceId":teacherDeviceid,"toview":true
       });
 
@@ -202,7 +237,7 @@ String uplodedDocumentUrl;
 
     print("im printing the download url");
     print(url);
-    final http.Response downloadedData=await http.get(url);
+
   }
 
 

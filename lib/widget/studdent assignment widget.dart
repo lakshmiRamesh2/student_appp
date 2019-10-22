@@ -52,20 +52,17 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
                 children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(widget.assignmentName,style: TextStyle(fontSize: 14.0,color: Colors.redAccent)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: RaisedButton(onPressed: (){
-                   // _showDownloadurl();
-                    //downloadUrl(widget.assignmentUrl);
-                  },child:Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.file_download,color: Colors.blue,),
-                      Text(" Download",style: TextStyle(fontSize: 14.0,color: Colors.blue),),
+                      Text("hey u got the result !!!!",style: TextStyle(fontSize: 14.0,color: Colors.redAccent)),
+                      Text("Tap to see the status"),
                     ],
-                  ),),
-                )
+                  ),
+                ),
+
+
               ],
               ),
             ),
@@ -74,26 +71,5 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
       ),
     );
   }
-
-  void _showDownloadurl() {
-    print("dialog box called");
-    AlertDialog dialog = AlertDialog(
-      content: Column(
-        children: <Widget>[
-          Text("please tap on the link"+widget.assignmentUrl),
-
-        ],
-      ),
-      actions: <Widget>[
-
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (context) => dialog,
-      // child: dialog,
-    );
-  }
-
 
 }

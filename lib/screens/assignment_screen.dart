@@ -28,20 +28,21 @@ class AssignmentScreen extends StatefulWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(title: Text("status Screen"),automaticallyImplyLeading: true,backgroundColor: Colors.green,),
       body: Column(
         children: <Widget>[
-          Text("Student Name"),
+          Text(widget.studentName),
+
+          assignmentWidget("name", "url")
 
         ],
       ),
     );
   }
 
-  String wish;
+  String wish="";
 Widget assignmentWidget(String studentName,String studentUrl) {
-  return Scaffold(
-    appBar: AppBar(title: Text("Status Screen"),automaticallyImplyLeading: true,backgroundColor: Colors.green),
-    body: Card(child: Column(
+  return Card(child: Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -52,7 +53,7 @@ Widget assignmentWidget(String studentName,String studentUrl) {
           child: greatings(),
         ),
       ],
-    ),),
+    ),
   );
 }
 
@@ -75,15 +76,18 @@ Widget assignmentWidget(String studentName,String studentUrl) {
   }
  }
  Widget greatings(){
-  return Wrap(children: <Widget>[
-    Row(children: <Widget>[
-      Text("Teacher "),
-      Text(widget.teacherName),
-      Text(" has been given you the status"),
-      Text(widget.statusOfAssignment),
-      Text(" For assignment"),
-      Text(widget.assignmentName),
-    ],)
-  ],);
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Wrap(children: <Widget>[
+      Row(children: <Widget>[
+
+
+        Text("Status for your Assignment is - "),
+        Text(widget.statusOfAssignment),
+
+
+      ],)
+    ],),
+  );
  }
 }
